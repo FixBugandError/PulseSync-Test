@@ -1,0 +1,20 @@
+public class ApplicationDbContext : DbContext
+{
+ public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+ public DbSet<Employee> Employees { get; set; }
+ public DbSet<Department> Departments { get; set; }
+}
+public class EmployeeService
+{
+ private readonly ApplicationDbContext _context;
+ public EmployeeService(ApplicationDbContext context)
+ {
+ _context = context;
+ }
+ public (Employee youngest, Employee eldest) GetYoungestAndEldestEmployees()
+ {
+ var youngest = _context.Employees.OrderBy(e => e.Age).FirstOrDefault();
+ var eldest = _context.Employees.OrderByDescending(e => e.Age).FirstOrDefault();
+ return (youngest, eldest);
+ }
+}
