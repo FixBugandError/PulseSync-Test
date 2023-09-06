@@ -1,0 +1,32 @@
+using System.Collections.Generic;
+using System.IO;
+using System.Web;
+using System.Web.Mvc;
+public class ItemController : Controller
+{
+ public ActionResult Index()
+ {
+ var itemList = new List<Item>();
+ return View(itemList);
+ }
+ [HttpPost]
+ public ActionResult UploadFile(HttpPostedFileBase file)
+ {
+ if (file != null && file.ContentLength > 0)
+ {
+ var itemList = new List<Item>();
+ using (var reader = new StreamReader(file.InputStream))
+ {
+ while (!reader.EndOfStream)
+ {
+ var line = reader.ReadLine();
+ var item = new Item { Id = itemList.Count + 1, Name = line };
+ itemList.Add(item);
+ }
+ }
+ return View("Index", itemList);
+ }
+ var emptyList = new List<Item>();
+ return View("Index", emptyList);
+ }
+}
