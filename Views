@@ -1,0 +1,19 @@
+@model (Employee youngest, Employee eldest)
+<h1>Youngest and Eldest Employees</h1>
+<table>
+ <tr>
+ <th>Employee Name</th>
+ <th>Designation</th>
+ <th>Age</th>
+ </tr>
+ <tr>
+ <td>@Model.eldest.Name</td>
+ <td>@Model.eldest.Designation</td>
+ <td>@Model.eldest.Age</td>
+ </tr>
+ <tr>
+ <td>@Model.youngest.Name</td>
+ <td>@Model.youngest.Designation</td>
+ <td>@Model.youngest.Age</td>
+ </tr>
+</table
